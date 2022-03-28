@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const userRoute = require('./routes/users');
+const authRoute = require('./routes/auth');
 
 
 //Dotenv configuration
@@ -25,6 +26,7 @@ app.use(morgan("common"));
 
 //whenever we go to this address(api/users) we will get the response from userRoute
 app.use('/api/users', userRoute);
+app.use('/api/auth', authRoute);
 
 
 

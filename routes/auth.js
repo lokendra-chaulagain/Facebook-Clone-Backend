@@ -1,10 +1,10 @@
-//create Router
+//Auth Route
 const router = require('express').Router();
 
 
 //Routes
 router.get("/", (req, res) => {
-    res.send("Hey its user Route");
+    res.send("Hey its Auth Route");
 })
 
 
