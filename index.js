@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const userRoute = require('./routes/users');
 
 
 //Dotenv configuration
@@ -22,11 +23,9 @@ app.use(helmet());
 app.use(morgan("common"));
 
 
-//Routes
-app.get("/", (req, res) => {
-    res.send("welcomessdd page");
+//whenever we go to this address(api/users) we will get the response from userRoute
+app.use('/api/users', userRoute);
 
-})
 
 
 app.listen(5000, () => {
