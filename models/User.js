@@ -45,6 +45,27 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false, //when user is created it will be normal user by default
     },
+    desc:{
+        type: String,
+        default: "",
+        maxlength: 100, 
+    },
+    city:{
+        type: String,
+        default: "",
+        maxlength: 50,
+    },
+    from:{
+        type: String,
+        default: "",
+        maxlength: 50,
+
+    },
+    relationship:{
+        type: Number,
+        enum:[1,2,3],
+    }
+
 }, { timestamps: true });
 
 //Exporting UserModel

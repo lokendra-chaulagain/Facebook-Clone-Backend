@@ -1,12 +1,45 @@
-const router = require('express').Router();
+const router = require("express").Router();
+const User = require("../models/User");
+const bcrypt = require("bcrypt"); //its async function so we need to use await
 
+//UPDATE USER
+router.put("/:id", async (req, res) => {
+    if (req.body.userId == req.params.id || req.user.isAdmin) {
+        try {
+            //generate salt to hash the password
+            const salt = await bcrypt.genSalt(10);
 
-//Routes
-router.get("/", (req, res) => {
-    res.send("Hey its user Route");
-})
+            //hash the password
+            req.body.password = await bcrypt.hash(req.body.password, salt);
 
+            //if error show error
+        } catch (error) {
+            res.status(500).json({ error });
+        }
 
+        try {
+            //update the user
+            const user = await User.findByIdAndUpdate(req.params.id, {
+                $set: req.body,
+            });
+            res.status(200).json("Account has been updated");
+
+            //if error show error
+        } catch (error) {
+            res.status(500).json({ error });
+        }
+    } else {
+        res.status(403).json({ msg: "You can update only your profile" });
+    }
+});
+
+//DELETE USER
+
+//GET A USER
+
+//FOLLOW A USER
+
+//UNFOLLOW A USER
 
 //to use in index file we export router
 module.exports = router;
