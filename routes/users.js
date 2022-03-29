@@ -4,21 +4,27 @@ const bcrypt = require("bcrypt"); //its async function so we need to use await
 
 //UPDATE USER
 router.put("/:id", async (req, res) => {
-    if (req.body.userId == req.params.id || req.user.isAdmin) {
-        try {
-            //generate salt to hash the password
-            const salt = await bcrypt.genSalt(10);
 
-            //hash the password
-            req.body.password = await bcrypt.hash(req.body.password, salt);
+    if (req.body.userId === req.params.id || req.user.isAdmin) {
 
-            //if error show error
-        } catch (error) {
-            res.status(500).json({ error });
+        if (req.body.password) {
+            try {
+
+                //generate salt to hash the password
+                const salt = await bcrypt.genSalt(10);
+
+                //hash the password
+                req.body.password = await bcrypt.hash(req.body.password, salt);
+
+                //if error show error
+            } catch (error) {
+                res.status(500).json({ error });
+            }
         }
 
+        //Actual update of the user
         try {
-            //update the user
+
             const user = await User.findByIdAndUpdate(req.params.id, {
                 $set: req.body,
             });
