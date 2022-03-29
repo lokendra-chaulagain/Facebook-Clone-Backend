@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt"); //its async function so we need to use await
 //UPDATE USER
 router.put("/:id", async (req, res) => {
 
-    if (req.body.userId === req.params.id || req.user.isAdmin) {
+    if (req.body.userId === req.params.id || req.body.isAdmin) {
 
         if (req.body.password) {
             try {
@@ -39,7 +39,37 @@ router.put("/:id", async (req, res) => {
     }
 });
 
+
 //DELETE USER
+router.delete("/:id", async (req, res) => {
+
+    if (req.body.userId === req.params.id || req.body.isAdmin) {
+
+        //Actual update of the user
+        try {
+
+            const user = await User.findByIdAndDelete(req.params.id);
+            res.status(200).json("Account has been deleted successfully");
+
+            //if error show error
+        } catch (error) {
+            res.status(500).json({ error });
+        }
+    } else {
+        res.status(403).json({ msg: "You can delete only your profile" });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
 
 //GET A USER
 
