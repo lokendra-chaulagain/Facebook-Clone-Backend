@@ -45,7 +45,7 @@ router.delete("/:id", async (req, res) => {
 
     if (req.body.userId === req.params.id || req.body.isAdmin) {
 
-        //Actual update of the user
+
         try {
 
             const user = await User.findByIdAndDelete(req.params.id);
@@ -62,16 +62,50 @@ router.delete("/:id", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
 //GET A USER
+router.get("/:id", async (req, res) => {
+
+    try {
+        const user = await User.findById(req.params.id);
+
+        //this info is not needed to be sent to the client//not showing credentials to user
+        const { password, updatedAt, ...others } = user._doc
+
+        res.status(200).json(others);//user if we dont use above line
+
+        //if error show error
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //FOLLOW A USER
 
