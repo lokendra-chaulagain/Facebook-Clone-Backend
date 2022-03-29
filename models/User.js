@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6,
-        maxlength: 12,
+        maxlength: 200,//bcrypt might be more than 200
         trim: true,
     },
     profilePicture: {
