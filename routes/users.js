@@ -40,14 +40,13 @@ router.put("/:id", async (req, res) => {
 });
 
 
-//DELETE USER
+//DELETE A USER
 router.delete("/:id", async (req, res) => {
 
     if (req.body.userId === req.params.id || req.body.isAdmin) {
 
 
         try {
-
             const user = await User.findByIdAndDelete(req.params.id);
             res.status(200).json("Account has been deleted successfully");
 
@@ -78,37 +77,36 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error });
     }
 
-
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //FOLLOW A USER
+//following means we gonns updare something so puty method
+router.put("/:id/follow", async (req, res) => {
+    if (!req.body.userId === req.params.id) {
+        try {
+            //finding the user
+            const user = await User.findById(req.params.id);
+            const currentUser = await User.findById(req.body.userId);
+            if (!user.followers.includes(req.body.userId)) {
+                await user.updateOne({ $push: { followers: req.body.userId } });
+                await currentUser.updateOne({ $push: { followings: req.body.userId } });
+                res.status(200).json("You are now following this user");
 
+            } else {
+                res.status(403).json({ msg: "You are already following this user" });
+            }
+        }
+        catch (error) {
+            res.status(500).json({ error });
+        }
+
+
+
+    } else {
+        res.status(403).json({ msg: "You can't follow yourself" })
+    }
+})
 //UNFOLLOW A USER
 
 //to use in index file we export router
