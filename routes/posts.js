@@ -57,6 +57,7 @@ router.delete("/:id", async (req, res) => { //post id
 
 
 //LIKE  AND DISLIKE A POST 
+//output aaayena hai 
 router.put("/:id/like", async (req, res) => {
     try {
         const post = await Post.findById(req.params.id)//find the post by id
@@ -90,28 +91,31 @@ router.get("/:id", async (req, res) => {
 
 }
 )
+//GET TIMELINE POSTS 
+router.get("/timeline/all", async (req, res) => {
+
+
+    //lets fetch all there post
+    try {
+
+        const currentUser = await User.findById(req.body.userId)
+        const userPosts = await Post.find({ userId: { $in: currentUser._id } })
+        const friendPost = await promise.all(
+            currentUser.followings.map(friendId => {
+                return Post.find({ userId: friendId })
+            }))
+
+        //cancat two array
+        res.json(userPosts.concat(...friendPost))
+
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+
+
+})
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    //GET TIMELINE POSTS 
-
-
-
-
-
-
-
-    module.exports = router;
+module.exports = router;
