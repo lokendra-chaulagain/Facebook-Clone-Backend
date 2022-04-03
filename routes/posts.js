@@ -39,9 +39,7 @@ router.put("/:id", async (req, res) => { //post id
 
 //DELETE A POST
 router.delete("/:id", async (req, res) => { //post id
-
     try {
-
         const post = await Post.findById(req.params.id) //find the post by id
         //check the owner of the post
         if (post.userId === req.body.userId) {
@@ -54,30 +52,46 @@ router.delete("/:id", async (req, res) => { //post id
 
     } catch (error) {
         res.status(500).json({ message: error.message })
-
     }
 })
 
 
+//LIKE  AND DISLIKE A POST 
+router.put("/:id/like", async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id)//find the post by id
 
+        //after finding post check if this post's like array include this user or not
+        //means if this user has already liked this post or not
+        if (post.likes.includes(req.body.userId)) {
+            await post.updateOne({ $push: { likes: req.body.userId } })
+            res.status(200).json({ message: "Post has been liked" })
+        }
+        else {
+            await post.updateOne({ $pull: { likes: req.body.userId } })
+            res.status(200).json({ message: "Post has been unliked" })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message })
 
-
-
-
-
-
-
-
-
-
-//LIKE A POST 
-
-
+    }
+})
 
 //GET A POST 
+router.get("/:id", async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id) //find post
+        res.status(200).json(post)
+
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+
+    }
+
+}
+)
 
 
-//GET TIMELINE POSTS 
 
 
 
@@ -85,4 +99,19 @@ router.delete("/:id", async (req, res) => { //post id
 
 
 
-module.exports = router;
+
+
+
+
+
+
+
+    //GET TIMELINE POSTS 
+
+
+
+
+
+
+
+    module.exports = router;
