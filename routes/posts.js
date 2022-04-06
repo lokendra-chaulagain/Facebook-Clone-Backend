@@ -3,17 +3,17 @@ const Post = require('../models/Post');
 
 
 //CREATE A POST
-router.post("/newPost", async(req,res)=>{
+router.post("/newPost", async (req, res) => {
     try {
         //create a post
         const newPost = new Post(req.body)
-        
+
         //save post
-        const savedPost =await newPost.save()
+        const savedPost = await newPost.save()
         res.status(200).json(savedPost)
 
     } catch (error) {
-        res.status(500).json({message:error.message})
+        res.status(500).json({ message: error.message })
     }
 })
 
@@ -59,27 +59,22 @@ router.delete("/:id", async (req, res) => { //post id
 })
 
 
-//LIKE  AND DISLIKE A POST 
-//output aaayena hai 
+//LIKE / DISLIKE A POST 
 router.put("/:id/like", async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id)//find the post by id
-
-        //after finding post check if this post's like array include this user or not
-        //means if this user has already liked this post or not
-        if (post.likes.includes(req.body.userId)) {
-            await post.updateOne({ $push: { likes: req.body.userId } })
-            res.status(200).json({ message: "Post has been liked" })
+        const post = await Post.findById(req.params.id);
+        if (!post.likes.includes(req.body.userId)) {
+            await post.updateOne({ $push: { likes: req.body.userId } });
+            res.status(200).json("The post has been liked");
+        } else {
+            await post.updateOne({ $pull: { likes: req.body.userId } });
+            res.status(200).json("The post has been disliked");
         }
-        else {
-            await post.updateOne({ $pull: { likes: req.body.userId } })
-            res.status(200).json({ message: "Post has been unliked" })
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-
+    } catch (err) {
+        res.status(500).json(err);
     }
-})
+});        
+
 
 //GET A POST 
 router.get("/:id", async (req, res) => {
@@ -88,7 +83,7 @@ router.get("/:id", async (req, res) => {
         res.status(200).json(post)
 
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        res.status(500).json( error.message )
 
     }
 
