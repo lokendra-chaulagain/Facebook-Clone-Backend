@@ -73,7 +73,7 @@ router.put("/:id/like", async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-});        
+});
 
 
 //GET A POST 
@@ -83,37 +83,28 @@ router.get("/:id", async (req, res) => {
         res.status(200).json(post)
 
     } catch (error) {
-        res.status(500).json( error.message )
+        res.status(500).json(error.message)
 
     }
 
 }
 )
-//GET TIMELINE POSTS 
+//GET ALL TIMELINE POSTS 
+//It is not working
 router.get("/timeline/all", async (req, res) => {
-
-
-    //lets fetch all there post
     try {
-
-        const currentUser = await User.findById(req.body.userId)
-        const userPosts = await Post.find({ userId: { $in: currentUser._id } })
-        const friendPost = await promise.all(
-            currentUser.followings.map(friendId => {
-                return Post.find({ userId: friendId })
-            }))
-
-        //concat two array
-        res.json(userPosts.concat(...friendPost))
-
-    } catch (error) {
-        res.status(500).json({ message: error.message })
+        const currentUser = await User.findById(req.body.userId);
+        const userPosts = await Post.find({ userId: currentUser._id });
+        const friendPosts = await Promise.all(
+            currentUser.followings.map((friendId) => {
+                return Post.find({ userId: friendId });
+            })
+        );
+        res.json(userPosts.concat(...friendPosts))
+    } catch (err) {
+        res.status(500).json(err);
     }
-
-
-})
-
-
+});
 
 
 module.exports = router;
