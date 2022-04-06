@@ -33,5 +33,5 @@ app.use('/api/posts', postRoute);
 
 
 app.listen(5000, () => {
-    console.log('server is ruunning at 5000');
+    console.log('server is running at 5000');
 });

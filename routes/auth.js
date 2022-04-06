@@ -37,7 +37,7 @@ router.post("/login", async (req, res) => {
 
     //if user exists
     if (user) {
-      //check the user password with hassedPassword in the database
+      //check the user password with hashedPassword in the database
       const validPassword = await bcrypt.compare(req.body.password, user.password)
 
       //if password matched

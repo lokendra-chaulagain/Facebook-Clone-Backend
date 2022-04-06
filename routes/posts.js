@@ -1,19 +1,22 @@
 const router = require('express').Router();
 const Post = require('../models/Post');
 
-//CREATE A POST
-router.post("/", async (req, res) => {
-    const newPost = new Post(req.body)
 
+//CREATE A POST
+router.post("/newPost", async(req,res)=>{
     try {
-        const savedPost = await newPost.save()
+        //create a post
+        const newPost = new Post(req.body)
+        
+        //save post
+        const savedPost =await newPost.save()
         res.status(200).json(savedPost)
 
     } catch (error) {
-        res.status(500).json({ message: error.message })
-
+        res.status(500).json({message:error.message})
     }
 })
+
 
 //UPDATE A POST
 router.put("/:id", async (req, res) => { //post id
@@ -44,7 +47,7 @@ router.delete("/:id", async (req, res) => { //post id
         //check the owner of the post
         if (post.userId === req.body.userId) {
             await post.deleteOne()
-            res.status(200).json({ message: "Post has neen delted" })
+            res.status(200).json({ message: "Post has been deleted" })
         }
         else {
             res.status(403).json({ message: "You are not authorized to delete this post" })
@@ -105,7 +108,7 @@ router.get("/timeline/all", async (req, res) => {
                 return Post.find({ userId: friendId })
             }))
 
-        //cancat two array
+        //concat two array
         res.json(userPosts.concat(...friendPost))
 
     } catch (error) {
