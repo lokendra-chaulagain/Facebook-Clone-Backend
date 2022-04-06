@@ -18,10 +18,12 @@ router.post("/newPost", async (req, res) => {
 })
 
 
+
 //UPDATE A POST
 router.put("/:id", async (req, res) => { //post id
 
     try {
+        
 
         const post = await Post.findById(req.params.id) //find the post by id
         //check the owner of the post
@@ -57,6 +59,8 @@ router.delete("/:id", async (req, res) => { //post id
         res.status(500).json({ message: error.message })
     }
 })
+
+
 
 
 //LIKE / DISLIKE A POST 
