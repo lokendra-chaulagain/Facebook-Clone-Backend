@@ -61,10 +61,15 @@ router.delete("/:id", async (req, res) => {
 
 
 //GET A USER
-router.get("/:id", async (req, res) => {
+router.get("/", async (req, res) => {
+    //query
+    const userId = req.query.userId
+    const username = req.query.username
 
     try {
-        const user = await User.findById(req.params.id);
+        const user = userId
+            ? await User.findById(req.params.id)
+            : await User.findOne({ username })
 
         //this info is not needed to be sent to the client//not showing credentials to user
         const { password, updatedAt, ...others } = user._doc
