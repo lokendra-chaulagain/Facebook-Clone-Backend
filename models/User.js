@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 3,
-        maxlength:200,
+        maxlength: 200,
         trim: true,
         unique: true,
     },
@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6,
-        maxlength: 200,//bcrypt might be more than 200
+        maxlength: 200,
         trim: true,
     },
     profilePicture: {
@@ -43,30 +43,30 @@ const UserSchema = new mongoose.Schema({
     },
     isAdmin: {
         type: Boolean,
-        default: false, //when user is created it will be normal user by default
+        default: false,
     },
-    desc:{
+    desc: {
         type: String,
         default: "",
-        maxlength: 100, 
+        maxlength: 100,
     },
-    city:{
+    city: {
         type: String,
         default: "",
         maxlength: 50,
     },
-    from:{
+    from: {
         type: String,
         default: "",
         maxlength: 50,
 
     },
-    relationship:{
+    relationship: {
         type: Number,
-        enum:[1,2,3],
+        enum: [1, 2, 3],
     }
 
 }, { timestamps: true });
 
-//Exporting UserModel
+
 module.exports = mongoose.model("User", UserSchema)
