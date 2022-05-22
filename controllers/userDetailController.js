@@ -1,4 +1,5 @@
 const UserDetail = require("../models/UserDetail");
+const createError = require("../utils/error");
 
 //create userDetail
 const createUserDetail = async (req, res, next) => {
@@ -7,7 +8,7 @@ const createUserDetail = async (req, res, next) => {
     const savedUserDetail = await userDetail.save();
     res.status(200).json(savedUserDetail);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while creating userDetail"));
   }
 };
 
@@ -18,7 +19,7 @@ const getUserDetailByUserID = async (req, res, next) => {
     const getUserID = await UserDetail.find({ userID });
     return (res = res.status(200).json(getUserID));
   } catch (error) {
-    next(error);
+    return next(createError(500, "Server Error while getting userDetail "));
   }
 };
 

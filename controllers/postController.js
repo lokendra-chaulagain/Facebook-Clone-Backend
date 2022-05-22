@@ -1,5 +1,6 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
+const createError = require("../utils/error");
 
 //Create Post
 const createPost = async (req, res, next) => {
@@ -8,7 +9,7 @@ const createPost = async (req, res, next) => {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while creating post"));
   }
 };
 
@@ -20,7 +21,7 @@ const updatePost = async (req, res, next) => {
     });
     res.status(200).json(updatedPost);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while updating post"));
   }
 };
 
@@ -30,7 +31,7 @@ const deletePost = async (req, res, next) => {
     const deletedPost = await Post.findByIdAndDelete(req.params.id);
     res.status(200).json(deletedPost);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while deleting post"));
   }
 };
 
@@ -40,7 +41,7 @@ const getPost = async (req, res, next) => {
     const post = await Post.findById(req.params.id);
     res.status(200).json(post);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while getting post"));
   }
 };
 
@@ -50,7 +51,7 @@ const getAllPosts = async (req, res, next) => {
     const posts = await Post.find();
     res.status(200).json(posts);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while getting all posts"));
   }
 };
 

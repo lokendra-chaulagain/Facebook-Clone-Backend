@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const createError = require("../utils/error");
 
 //Update
 const updateUser = async (req, res, next) => {
@@ -8,7 +9,7 @@ const updateUser = async (req, res, next) => {
     });
     res.status(200).json(updatedUser);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while updating user"));
   }
 };
 
@@ -18,7 +19,7 @@ const getUser = async (req, res, next) => {
     const user = await User.findById(req.params.id);
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while getting user"));
   }
 };
 
@@ -28,7 +29,7 @@ const getAllUsers = async (req, res, next) => {
     const users = await User.find();
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while getting all users"));
   }
 };
 
@@ -38,7 +39,7 @@ const deleteUser = async (req, res, next) => {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
     res.status(200).json(deletedUser);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error while deleting user"));
   }
 };
 

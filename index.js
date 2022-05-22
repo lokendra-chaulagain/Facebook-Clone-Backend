@@ -27,6 +27,18 @@ app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/userDetail", userDetailRoute);
 
+//Error handling middleware
+app.use((error, req, res, next) => {
+  const errorStatus = error.status || 500;
+  const errorMessage = error.message || "Something went wrong";
+  return res.status(errorStatus).json({
+    successStatus: false,
+    status: error.status,
+    message: error.message,
+    stack: error.stack,
+  });
+});
+
 //post listening
 app.listen(5000, () => {
   console.log("server is running at 5000");

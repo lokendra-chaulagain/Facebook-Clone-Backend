@@ -2,6 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const createError = require("../utils/error");
 
 //Register
 const userRegister = async (req, res, next) => {
@@ -15,12 +16,11 @@ const userRegister = async (req, res, next) => {
       email: req.body.email,
       password: hashedPassword,
     });
-
     //save user
     const user = await newUser.save();
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error"));
   }
 };
 
@@ -49,21 +49,21 @@ const userLogin = async (req, res, next) => {
           process.env.JWT_SECRET,
           { expiresIn: "2h" }
         );
+        const { password, ...others } = user._doc;
 
         //saving token in cookies
-        const { password, ...others } = user._doc;
         res
           .cookie("access_token", token, { httpOnly: true })
           .status(200)
           .json({ others, token });
       } else {
-        res.status(400).json("Invalid Password");
+        return next(createError(401, "Invalid Password"));
       }
     } else {
-      res.status(400).json("User does not exist");
+      return next(createError(404, "User not found"));
     }
   } catch (error) {
-    res.status(500).json(error);
+    return next(createError(500, "Server Error"));
   }
 };
 
