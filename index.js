@@ -7,10 +7,9 @@ const morgan = require("morgan");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-const userDetailRoute = require("./routes/userDetail");
-const multer = require("multer");
+const userDetailRoute = require("./routes/userDetails");
+const cookieParser = require("cookie-parser");
 
-//Dotenv configuration
 app.use(express.json());
 dotenv.config();
 
@@ -20,15 +19,15 @@ mongoose.connect(process.env.MONGO_URL, () => {
 });
 
 //Middleware
-
 app.use(helmet());
 app.use(morgan("common"));
-
+app.use(cookieParser());
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/userDetail", userDetailRoute);
 
+//post listening
 app.listen(5000, () => {
   console.log("server is running at 5000");
 });

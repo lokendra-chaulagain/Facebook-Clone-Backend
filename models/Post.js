@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 //PostSchema
 const PostSchema = new mongoose.Schema(
   {
-    userId: {
+    userID: {
       type: String,
       required: true,
     },
@@ -17,7 +17,7 @@ const PostSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    
+
     likes: {
       type: Array,
       default: [],

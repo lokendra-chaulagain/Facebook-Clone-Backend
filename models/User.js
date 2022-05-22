@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 //UserSchema
 const UserSchema = new mongoose.Schema(
   {
-    fullName: {
+    username: {
       type: String,
       required: true,
       minlength: 4,
@@ -25,17 +25,10 @@ const UserSchema = new mongoose.Schema(
       maxlength: 200,
     },
 
-    // posts: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Post",
-    //   },
-    // ],
-
-    // isAdmin: {
-    //   type: Boolean,
-    //   default: false,
-    // },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

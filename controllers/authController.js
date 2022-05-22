@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 
 //Register
 const userRegister = async (req, res, next) => {
@@ -9,7 +11,7 @@ const userRegister = async (req, res, next) => {
 
     //create new user
     const newUser = new User({
-      fullName: req.body.fullName,
+      username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
     });
@@ -35,9 +37,25 @@ const userLogin = async (req, res, next) => {
         user.password
       );
 
-      //if matched
+      //if password matched create token
       if (validatePassword) {
-        res.status(200).json(user);
+        const token = jwt.sign(
+          {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            isAdmin: user.isAdmin,
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: "2h" }
+        );
+
+        //saving token in cookies
+        const { password, ...others } = user._doc;
+        res
+          .cookie("access_token", token, { httpOnly: true })
+          .status(200)
+          .json({ others, token });
       } else {
         res.status(400).json("Invalid Password");
       }
@@ -50,4 +68,4 @@ const userLogin = async (req, res, next) => {
 };
 
 //export
-module.exports = {userRegister, userLogin};
+module.exports = { userRegister, userLogin };
