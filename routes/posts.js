@@ -4,19 +4,19 @@ const User = require("../models/User");
 
 
 //CREATE A POST
-router.post("/newPost", async (req, res) => {
-    try {
-        //create a post
-        const newPost = new Post(req.body)
+// router.post("/newPost", async (req, res) => {
+//     try {
+//         //create a post
+//         const newPost = new Post(req.body)
 
-        //save post
-        const savedPost = await newPost.save()
-        res.status(200).json(savedPost)
+//         //save post
+//         const savedPost = await newPost.save()
+//         res.status(200).json(savedPost)
 
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-})
+//     } catch (error) {
+//         res.status(500).json({ message: error.message })
+//     }
+// })
 
 
 

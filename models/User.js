@@ -1,72 +1,43 @@
 const mongoose = require("mongoose");
 
 //UserSchema
-const UserSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        minlength: 3,
-        maxlength: 20,
-        trim: true,
-        unique: true,
+const UserSchema = new mongoose.Schema(
+  {
+    fullName: {
+      type: String,
+      required: true,
+      minlength: 4,
+      maxlength: 30,
     },
+
     email: {
-        type: String,
-        required: true,
-        minlength: 3,
-        maxlength: 200,
-        trim: true,
-        unique: true,
+      type: String,
+      required: true,
+      minlength: 7,
+      maxlength: 30,
+      unique: true,
     },
+
     password: {
-        type: String,
-        required: true,
-        minlength: 6,
-        maxlength: 200,
-        trim: true,
+      type: String,
+      required: true,
+      minlength: 4,
+      maxlength: 200,
     },
-    profilePicture: {
-        type: String,
-        default: "",
-    },
-    coverPicture: {
-        type: String,
-        default: "",
-    },
-    followers: {
-        type: Array, //array of userIds
-        default: [],
-    },
-    followings: {
-        type: Array, //array of userIds
-        default: [],
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false,
-    },
-    desc: {
-        type: String,
-        default: "",
-        maxlength: 100,
-    },
-    city: {
-        type: String,
-        default: "",
-        maxlength: 50,
-    },
-    from: {
-        type: String,
-        default: "",
-        maxlength: 50,
 
-    },
-    relationship: {
-        type: Number,
-        enum: [1, 2, 3],
-    }
+    // posts: [
+    //   {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Post",
+    //   },
+    // ],
 
-}, { timestamps: true });
+    // isAdmin: {
+    //   type: Boolean,
+    //   default: false,
+    // },
+  },
+  { timestamps: true }
+);
 
-
-module.exports = mongoose.model("User", UserSchema)
+module.exports = mongoose.model("User", UserSchema);
