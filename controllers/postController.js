@@ -45,6 +45,29 @@ const getPost = async (req, res, next) => {
   }
 };
 
+//Get user's posts only
+// const getUserPosts = async (req, res, next) => {
+//   try {
+//     const user = await User.findById(req.params.id);
+//     const posts = await Post.find({ user: user._id });
+//     res.status(200).json(posts);
+//   } catch (error) {
+//     return next(createError(500, "Server Error while getting user's posts"));
+//   }
+// }
+//
+
+//Get user post only
+const getUserPostOnly = async (req, res, next) => {
+  const { userID } = req.body;
+  try {
+    const getUserKoPosts = await Post.find({ userID });
+    return (res = res.status(200).json(getUserKoPosts));
+  } catch (error) {
+    return next(createError(500, "Server Error while getting userKoPosts "));
+  }
+};
+
 //GetAll Posts
 const getAllPosts = async (req, res, next) => {
   try {
@@ -56,4 +79,11 @@ const getAllPosts = async (req, res, next) => {
 };
 
 //export
-module.exports = { createPost, updatePost, deletePost, getPost, getAllPosts };
+module.exports = {
+  createPost,
+  updatePost,
+  deletePost,
+  getPost,
+  getAllPosts,
+  getUserPostOnly,
+};

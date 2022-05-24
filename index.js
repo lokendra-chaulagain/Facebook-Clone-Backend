@@ -15,7 +15,7 @@ dotenv.config();
 
 //MongoDB connection
 mongoose.connect(process.env.MONGO_URL, () => {
-  console.log("connection with mongoDB successful");
+  console.log("MongoDB Connection Successful");
 });
 
 //Middleware
@@ -40,6 +40,6 @@ app.use((error, req, res, next) => {
 });
 
 //post listening
-app.listen(5000, () => {
-  console.log("server is running at 5000");
+app.listen(process.env.PORT, () => {
+  console.log("Backend Server is running on port " + process.env.PORT);
 });

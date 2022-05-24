@@ -5,6 +5,7 @@ const {
   getPost,
   getAllPosts,
   deletePost,
+  getUserPostOnly,
 } = require("../controllers/postController");
 const Post = require("../models/Post");
 const User = require("../models/User");
@@ -23,6 +24,9 @@ router.delete("/delete/:id", deletePost);
 
 //Get all post
 router.get("/getAll", getAllPosts);
+
+//get userKo post only
+ router.get("/getUserPosts", getUserPostOnly);
 
 //GET ALL TIMELINE POSTS (all friends posts)
 router.get("/timeline/:userId", async (req, res) => {

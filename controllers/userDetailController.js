@@ -12,7 +12,7 @@ const createUserDetail = async (req, res, next) => {
   }
 };
 
-//Get userDetail by userID
+//Get userDetail by userID (children)
 const getUserDetailByUserID = async (req, res, next) => {
   const { userID } = req.body;
   try {
@@ -23,5 +23,34 @@ const getUserDetailByUserID = async (req, res, next) => {
   }
 };
 
+//update
+const updateUserDetail = async (req, res, next) => {
+  try {
+    const updatedUserDetail = await UserDetail.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.status(201).json(updatedUserDetail);
+  } catch (error) {
+    return next(createError(500, "Server Error while updating userDetail "));
+  }
+};
+
+//get all useDetail
+const getAllUserDetail = async (req, res, next) => {
+  try {
+    const allUserDetail = await UserDetail.find();
+    res.status(200).json(allUserDetail);
+  } catch (error) {
+    return next(createError(500, "Server Error while getting all userDetail "));
+  }
+};
+
 //export
-module.exports = { createUserDetail, getUserDetailByUserID };
+module.exports = {
+  createUserDetail,
+  getUserDetailByUserID,
+  updateUserDetail,
+  getAllUserDetail,
+};

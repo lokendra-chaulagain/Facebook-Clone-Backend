@@ -8,6 +8,11 @@ const userDetailSchema = new mongoose.Schema(
       required: true,
     },
 
+    username: {
+      type: String,
+      default: "",
+    },
+
     profilePic: {
       type: String,
       default: "",
@@ -28,12 +33,6 @@ const userDetailSchema = new mongoose.Schema(
       default: [],
     },
 
-    profileDesc: {
-      type: String,
-      default: "",
-      maxlength: 100,
-    },
-
     from: {
       type: String,
       default: "",
@@ -50,6 +49,81 @@ const userDetailSchema = new mongoose.Schema(
     },
 
     nickName: {
+      type: String,
+      default: "",
+    },
+
+    bio: {
+      type: String,
+      default: "",
+    },
+
+    currentJobPosition1: {
+      type: String,
+      default: "",
+    },
+
+    currentJobCompany1: {
+      type: String,
+      default: "",
+    },
+
+    currentJobPosition2: {
+      type: String,
+      default: "",
+    },
+
+    currentJobCompany2: {
+      type: String,
+      default: "",
+    },
+
+    founderOf1: {
+      type: String,
+      default: "",
+    },
+
+    founderOf2: {
+      type: String,
+      default: "",
+    },
+
+    currentStudyingCourse: {
+      type: String,
+      default: "",
+    },
+
+    currentStudyingUniversity: {
+      type: String,
+      default: "",
+    },
+
+    graduatedCourse: {
+      type: String,
+      default: "",
+    },
+
+    graduatedUniversity: {
+      type: String,
+      default: "",
+    },
+
+    plus2CompletedCollege: {
+      type: String,
+      default: "",
+    },
+
+    plus2CompletedCollegeLocation: {
+      type: String,
+      default: "",
+    },
+
+    sEECompletedCollege: {
+      type: String,
+      default: "",
+    },
+
+    sEECompletedSchoolLocation: {
       type: String,
       default: "",
     },
