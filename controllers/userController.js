@@ -1,8 +1,13 @@
 const User = require("../models/User");
 const createError = require("../utils/error");
+const bcrypt = require("bcrypt");
 
 //Update
 const updateUser = async (req, res, next) => {
+  //if password update
+  if (req.body.password) {
+    req.body.password = await bcrypt.hash(req.body.password, 10);
+  }
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -13,7 +18,6 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-//Get
 const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
