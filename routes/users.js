@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const Post = require("../models/Post");
 const bcrypt = require("bcrypt");
 const {
   updateUser,
@@ -77,6 +78,38 @@ router.get("/followings/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     res.status(200).json(user.followings.length);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//Bookmark
+// router.put("/bookmark/:postId", async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.postId);
+//     const currentUser = await User.findById(req.body.userId);
+//     if (!currentUser.bookmarks.includes(req.params.postId)) {
+//       await currentUser.updateOne({ $push: { bookmarks: req.params.postId } });
+//       res.status(200).json("post has been bookmarked");
+//     } else {
+//       res.status(403).json("you already bookmarked this post");
+//     }
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+router.put("/bookmark/:postId", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    const currentUser = await User.findById(req.body.userId);
+    if (!currentUser.bookmarks.includes(req.params.postId)) {
+      await currentUser.updateOne({ $push: { bookmarks: req.params.postId } });
+      res.status(200).json("post has been bookmarked");
+    } else {
+      await currentUser.updateOne({ $pull: { bookmarks: req.params.postId } });
+      res.status(200).json("post has been Unbookmarked");
+    }
   } catch (err) {
     res.status(500).json(err);
   }
