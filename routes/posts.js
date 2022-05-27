@@ -25,9 +25,6 @@ router.delete("/delete/:id", deletePost);
 //Get all post
 router.get("/getAll", getAllPosts);
 
-//get userKo post only
-router.get("/getUserPosts", getUserPostOnly);
-
 //GET ALL TIMELINE POSTS (all friends posts)
 router.get("/timeline/:userId", async (req, res) => {
   try {
@@ -44,14 +41,14 @@ router.get("/timeline/:userId", async (req, res) => {
   }
 });
 
-//GET USER'S ALL POSTS
-router.get("/profile/:username", async (req, res) => {
+//Get user's posts only
+router.post("/getUserPosts", async (req, res) => {
+  const { userID } = req.body;
   try {
-    const user = await User.findOne({ username: req.params.username });
-    const posts = await Post.find({ userId: user._id });
-    res.status(200).json(posts);
-  } catch (err) {
-    res.status(500).json(err);
+    const userPosts = await Post.find({ userID });
+    res.status(200).json(userPosts);
+  } catch (error) {
+    return next(createError(500, "Server Error while getting user's posts"));
   }
 });
 
