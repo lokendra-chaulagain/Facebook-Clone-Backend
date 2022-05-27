@@ -127,6 +127,26 @@ const userDetailSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
+    pastJob1Position:{
+      type: String,
+      default: "",
+    },
+
+    pastJob1Company:{
+      type: String,
+      default: "",
+    },
+
+    pastJob2Position:{
+      type: String,
+      default: "",
+    },
+
+    pastJob2Company:{
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );

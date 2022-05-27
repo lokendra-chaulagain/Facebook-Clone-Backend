@@ -15,6 +15,7 @@ const PostSchema = new mongoose.Schema(
 
     profilePic: {
       type: String,
+      default: "",
     },
 
     desc: {

@@ -10,6 +10,11 @@ const UserSchema = new mongoose.Schema(
       maxlength: 30,
     },
 
+    profilePic: {
+      type: String,
+      default: "",
+    },
+
     email: {
       type: String,
       required: true,
@@ -40,10 +45,10 @@ const UserSchema = new mongoose.Schema(
       default: [],
     },
 
-    bookmarks:{
+    bookmarks: {
       type: Array,
       default: [],
-    }
+    },
   },
   { timestamps: true }
 );

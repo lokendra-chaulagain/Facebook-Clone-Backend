@@ -99,6 +99,7 @@ router.get("/followings/:id", async (req, res) => {
 //   }
 // });
 
+//Bookmark
 router.put("/bookmark/:postId", async (req, res) => {
   try {
     const post = await Post.findById(req.params.postId);
@@ -110,6 +111,38 @@ router.put("/bookmark/:postId", async (req, res) => {
       await currentUser.updateOne({ $pull: { bookmarks: req.params.postId } });
       res.status(200).json("post has been Unbookmarked");
     }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//All bookmark post id
+router.get("/bookmarkPosts/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user.bookmarks);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+
+//All followers (id)
+router.get("/allFollowers/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user.followers);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//All followings (id)
+router.get("/allFollowings/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user.followings);
   } catch (err) {
     res.status(500).json(err);
   }

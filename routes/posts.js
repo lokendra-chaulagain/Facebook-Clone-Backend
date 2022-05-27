@@ -26,7 +26,7 @@ router.delete("/delete/:id", deletePost);
 router.get("/getAll", getAllPosts);
 
 //get userKo post only
- router.get("/getUserPosts", getUserPostOnly);
+router.get("/getUserPosts", getUserPostOnly);
 
 //GET ALL TIMELINE POSTS (all friends posts)
 router.get("/timeline/:userId", async (req, res) => {
@@ -66,6 +66,16 @@ router.put("/:id/like", async (req, res) => {
       await post.updateOne({ $pull: { likes: req.body.userId } });
       res.status(200).json("The post has been disliked");
     }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//Get bookMarkPosts from id
+router.get("/bookmarkPosts/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    res.status(200).json(post);
   } catch (err) {
     res.status(500).json(err);
   }
