@@ -53,7 +53,7 @@ router.post("/getUserPosts", async (req, res) => {
 });
 
 //LIKE / DISLIKE A POST
-router.put("/:id/like", async (req, res) => {
+router.put("/like/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post.likes.includes(req.body.userId)) {
