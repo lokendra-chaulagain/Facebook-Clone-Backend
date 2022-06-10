@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
+const userPicRoute = require("./routes/userPic");
 const userDetailRoute = require("./routes/userDetails");
 const cookieParser = require("cookie-parser");
 
@@ -26,6 +27,7 @@ app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/userDetail", userDetailRoute);
+app.use("/api/userPic", userPicRoute);
 
 //Error handling middleware
 app.use((error, req, res, next) => {
@@ -43,3 +45,4 @@ app.use((error, req, res, next) => {
 app.listen(process.env.PORT, () => {
   console.log("Backend Server is running on port " + process.env.PORT);
 });
+
