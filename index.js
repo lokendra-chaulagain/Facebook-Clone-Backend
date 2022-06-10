@@ -8,6 +8,7 @@ const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const userPicRoute = require("./routes/userPic");
+const coverPicRoute = require("./routes/coverPic");
 const userDetailRoute = require("./routes/userDetails");
 const cookieParser = require("cookie-parser");
 
@@ -28,6 +29,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/userDetail", userDetailRoute);
 app.use("/api/userPic", userPicRoute);
+app.use("/api/coverPic", coverPicRoute);
 
 //Error handling middleware
 app.use((error, req, res, next) => {
@@ -41,8 +43,7 @@ app.use((error, req, res, next) => {
   });
 });
 
-//post listening
+//port listening
 app.listen(process.env.PORT, () => {
   console.log("Backend Server is running on port " + process.env.PORT);
 });
-

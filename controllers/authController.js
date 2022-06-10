@@ -7,18 +7,20 @@ const createError = require("../utils/error");
 //Register
 const userRegister = async (req, res, next) => {
   try {
-    //hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      const newUser = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: hashedPassword,
+      });
 
-    //create new user
-    const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: hashedPassword,
-    });
-    //save user
-    const user = await newUser.save();
-    res.status(200).json(user);
+      const user = await newUser.save();
+      res.status(200).json(user);
+    } else {
+      next(createError(400, "User already exist"));
+    }
   } catch (error) {
     return next(createError(500, "Server Error"));
   }
@@ -27,16 +29,13 @@ const userRegister = async (req, res, next) => {
 //Login
 const userLogin = async (req, res, next) => {
   try {
-    //find by email
     const user = await User.findOne({ email: req.body.email });
-
     //if user exist check password
     if (user) {
       const validatePassword = await bcrypt.compare(
         req.body.password,
         user.password
       );
-
       //if password matched create token
       if (validatePassword) {
         const token = jwt.sign(
@@ -50,7 +49,6 @@ const userLogin = async (req, res, next) => {
           { expiresIn: "2h" }
         );
         const { password, ...others } = user._doc;
-
         //saving token in cookies
         res
           .cookie("access_token", token, { httpOnly: true })
@@ -67,5 +65,4 @@ const userLogin = async (req, res, next) => {
   }
 };
 
-//export
 module.exports = { userRegister, userLogin };

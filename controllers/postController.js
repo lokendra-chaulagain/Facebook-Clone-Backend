@@ -1,7 +1,7 @@
-const Post = require("../models/Post");;
+const Post = require("../models/Post");
 const createError = require("../utils/error");
 
-//Create Post
+//Create
 const createPost = async (req, res, next) => {
   try {
     const newPost = new Post(req.body);
@@ -12,7 +12,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
-//Update Post
+//Update
 const updatePost = async (req, res, next) => {
   try {
     const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, {
@@ -24,7 +24,7 @@ const updatePost = async (req, res, next) => {
   }
 };
 
-//Delete Post
+//Delete
 const deletePost = async (req, res, next) => {
   try {
     const deletedPost = await Post.findByIdAndDelete(req.params.id);
@@ -34,7 +34,7 @@ const deletePost = async (req, res, next) => {
   }
 };
 
-//Get a Post
+//Get
 const getPost = async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -44,7 +44,7 @@ const getPost = async (req, res, next) => {
   }
 };
 
-//GetAll Posts
+//GetAll
 const getAllPosts = async (req, res, next) => {
   try {
     const posts = await Post.find();
@@ -54,7 +54,6 @@ const getAllPosts = async (req, res, next) => {
   }
 };
 
-//export
 module.exports = {
   createPost,
   updatePost,

@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-//UserSchema
 const UserSchema = new mongoose.Schema(
   {
     username: {
@@ -8,11 +7,6 @@ const UserSchema = new mongoose.Schema(
       required: true,
       minlength: 4,
       maxlength: 30,
-    },
-
-    profilePic: {
-      type: String,
-      default: "",
     },
 
     email: {
@@ -33,6 +27,16 @@ const UserSchema = new mongoose.Schema(
     isAdmin: {
       type: Boolean,
       default: false,
+    },
+
+    profilePic: {
+      type: String,
+      default: "",
+    },
+
+    coverPic: {
+      type: String,
+      default: "",
     },
 
     followers: {

@@ -37,7 +37,7 @@ const updateUserDetail = async (req, res, next) => {
   }
 };
 
-//get all useDetail
+//get all
 const getAllUserDetail = async (req, res, next) => {
   try {
     const allUserDetail = await UserDetail.find();
@@ -47,7 +47,6 @@ const getAllUserDetail = async (req, res, next) => {
   }
 };
 
-//export
 module.exports = {
   createUserDetail,
   getUserDetailByUserID,

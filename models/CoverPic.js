@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
-const UserPicSchema = new mongoose.Schema(
+const CoverPicSchema = new mongoose.Schema(
   {
     userID: {
       type: String,
       required: true,
     },
 
-    profilePic: {
+    coverPic: {
       type: String,
       default: "",
     },
@@ -15,4 +15,4 @@ const UserPicSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("UserPic", UserPicSchema);
+module.exports = mongoose.model("CoverPic", CoverPicSchema);

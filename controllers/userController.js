@@ -4,7 +4,9 @@ const bcrypt = require("bcrypt");
 
 //Update
 const updateUser = async (req, res, next) => {
-  //if password update
+  if (!req.body.password) {
+    delete req.body.password;
+  }
   if (req.body.password) {
     req.body.password = await bcrypt.hash(req.body.password, 10);
   }
@@ -18,7 +20,7 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-//
+//GetOne
 const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
@@ -48,5 +50,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-//export
 module.exports = { updateUser, getUser, getAllUsers, deleteUser };

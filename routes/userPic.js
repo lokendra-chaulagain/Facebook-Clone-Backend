@@ -10,5 +10,4 @@ router.post("/create", createUserPic);
 //Get
 router.get("/getUserPic", getUserPicByUserID);
 
-//export 
 module.exports = router;

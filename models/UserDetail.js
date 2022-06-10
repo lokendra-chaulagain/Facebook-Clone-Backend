@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-//UserDetailSchema
 const userDetailSchema = new mongoose.Schema(
   {
     userID: {
@@ -128,22 +127,22 @@ const userDetailSchema = new mongoose.Schema(
       default: "",
     },
 
-    pastJob1Position:{
+    pastJob1Position: {
       type: String,
       default: "",
     },
 
-    pastJob1Company:{
+    pastJob1Company: {
       type: String,
       default: "",
     },
 
-    pastJob2Position:{
+    pastJob2Position: {
       type: String,
       default: "",
     },
 
-    pastJob2Company:{
+    pastJob2Company: {
       type: String,
       default: "",
     },
@@ -151,5 +150,4 @@ const userDetailSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-//export
 module.exports = mongoose.model("UserDetail", userDetailSchema);
