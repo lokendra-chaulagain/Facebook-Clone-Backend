@@ -53,7 +53,7 @@ const userLogin = async (req, res, next) => {
         res
           .cookie("access_token", token, { httpOnly: true })
           .status(200)
-          .json({ others, token });
+          .json( others );
       } else {
         return next(createError(401, "Invalid Password"));
       }

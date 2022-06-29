@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const Post = require("../models/Post");
+const User = require("../models/User");
 const {
   createPost,
   updatePost,
@@ -7,20 +9,19 @@ const {
   deletePost,
   getUserPostOnly,
 } = require("../controllers/postController");
-const Post = require("../models/Post");
-const User = require("../models/User");
+const { verifyUser } = require("../utils/verifyToken");
 
 //Create post
 router.post("/create", createPost);
 
 //Update post
-router.put("/update/:id", updatePost);
+router.put("/update/:id", verifyUser, updatePost);
 
 //Get a post
 router.get("/get/:id", getPost);
 
 //Delete post
-router.delete("/delete/:id", deletePost);
+router.delete("/delete/:id", verifyUser, deletePost);
 
 //Get all post
 router.get("/getAll", getAllPosts);

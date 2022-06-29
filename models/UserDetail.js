@@ -12,42 +12,12 @@ const userDetailSchema = new mongoose.Schema(
       default: "",
     },
 
-    profilePic: {
-      type: String,
-      default: "",
-    },
-
-    coverPic: {
-      type: String,
-      default: "",
-    },
-
-    followers: {
-      type: Array,
-      default: [],
-    },
-
-    followings: {
-      type: Array,
-      default: [],
-    },
-
     from: {
       type: String,
       default: "",
     },
 
     currentlyLiving: {
-      type: String,
-      default: "",
-    },
-
-    relationshipStatus: {
-      type: Number,
-      enum: [1, 2, 3, 4, 5, 6],
-    },
-
-    nickName: {
       type: String,
       default: "",
     },
@@ -113,36 +83,6 @@ const userDetailSchema = new mongoose.Schema(
     },
 
     plus2CompletedCollegeLocation: {
-      type: String,
-      default: "",
-    },
-
-    sEECompletedCollege: {
-      type: String,
-      default: "",
-    },
-
-    sEECompletedSchoolLocation: {
-      type: String,
-      default: "",
-    },
-
-    pastJob1Position: {
-      type: String,
-      default: "",
-    },
-
-    pastJob1Company: {
-      type: String,
-      default: "",
-    },
-
-    pastJob2Position: {
-      type: String,
-      default: "",
-    },
-
-    pastJob2Company: {
       type: String,
       default: "",
     },
